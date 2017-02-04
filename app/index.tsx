@@ -1,5 +1,3 @@
-/// <reference path="../typings/tsd.d.ts" />
-
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Store, createStore } from 'redux';
@@ -9,6 +7,9 @@ import { App } from './components/app';
 import { counterApp } from './reducers';
 
 declare const require: (name: String) => any;
+
+/* tslint:disable-next-line */
+const test = require('./scss/main.scss');
 
 interface IHotModule {
   hot?: { accept: (path: string, callback: () => void) => void };
@@ -33,9 +34,11 @@ const store: Store = configureStore();
 
 class Main extends React.Component<{}, {}> {
   public render(): React.ReactElement<Provider> {
-    return (<Provider store={store}>
-      <App />
-    </Provider>);
+    return (
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
   }
 }
 

@@ -1,10 +1,9 @@
-/// <reference path="../../typings/tsd.d.ts" />
-
 import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { incrementCounter, decrementCounter, addCounter } from '../actions';
 import { CounterList } from './counter_list';
+import Game from './game';
 
 interface IAppState {
   counters: number[];
@@ -33,6 +32,7 @@ export class App extends React.Component<IAppProps, {}> {
         />
 
         <button onClick={() => dispatch(addCounter())}>Add Counter</button>
+        <Game />
       </div>
     );
   }

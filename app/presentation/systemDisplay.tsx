@@ -24,7 +24,7 @@ export default class SystemDisplay extends React.Component<{}, {}> {
         <h3>System</h3>
         {asteroids.map((a, i: number) => {
           return (
-            <div className="pbs">
+            <div className="pbs" key={i}>
               <span>Asteroid {i} - {a.amount} {a.resource} - {this.getDistanceToBase(a)}du</span>
               <Button className="mls" label="Mine" />
             </div>
@@ -36,7 +36,9 @@ export default class SystemDisplay extends React.Component<{}, {}> {
 
   private getDistanceToBase(item: any): string {
     const { x, y }: any = item;
-    const distance: number = Math.sqrt((x - baseCoords.x) * (x - baseCoords.x) + (y - baseCoords.y) * (y - baseCoords.y));
+    const distance: number = Math.sqrt(
+      (x - baseCoords.x) * (x - baseCoords.x) +
+      (y - baseCoords.y) * (y - baseCoords.y));
     return distance.toFixed(2);
   }
 }

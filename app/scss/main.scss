@@ -1,41 +1,82 @@
 @import url('https://fonts.googleapis.com/css?family=Space+Mono:400,400i,700');
 $font-base: 'Space Mono', monospace;
 
+$color-rangoon-green: #1b1b1b;
+$color-green: #6daa80;
+$color-celtic: #2d3d35;
+$color-vista-blue: #86ddb5;
+$color-dark-jungle: #1e2120;
+$color-timber-green: #304138;
+$color-red: #ed3737;
+@import './progressButton';
+
 *, *:after, *:before { box-sizing: border-box; }
 
 body {
-	background: #1B1B1B;
-	color: #6DAA80;
+	background: $color-rangoon-green;
+	color: $color-green;
 	font-size: 14px;
 	height: auto;
-	
+
 	* { font-family: $font-base; }
 }
 
 .box {
-	border: 1px solid #2D3D35;
-	margin: 5px;
-	padding: 5px;
+  background: rgba($color-timber-green, .2);
+	margin: 8px;
+	padding: 8px;
+  position: relative;
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 2px;
+    top: 0px;
+    background-image: radial-gradient(circle at center, rgba($color-green, .5) 2px, transparent 2px),
+      radial-gradient(circle at center, rgba($color-green, .5) 2px, transparent 2px);
+    background-size: 2px 2px;
+    background-position: top center, bottom center;
+    background-repeat: no-repeat;
+  }
+
+  &::before {
+    left: 0;
+  }
+
+  &::after {
+    right: 0;
+  }
+}
+
+.box--inline {
+  @extend .box;
+
+  display: inline-block;
+}
+
+.error {
+  color: $color-red;
 }
 
 button {
-	background: #1E2120;
-	border: 1px solid #304138;
+	background: $color-dark-jungle;
+	border: 1px solid $color-timber-green;
 	margin-right: 5px;
 	outline: none;
 	padding: 5px;
-	
+
 	&:hover {
-		border-color: #86DDB5;
-		box-shadow: 0 0 15px rgba(#86DDB5, .9);
+		border-color: $color-vista-blue;
+		box-shadow: 0 0 15px rgba($color-vista-blue, .9);
 		color: #fff;
 	}
-	
+
 	&:active {
-		border-color: #304138;
-		box-shadow: inset 0 0 10px rgba(#86DDB5, .5);
+		border-color: $color-timber-green;
+		box-shadow: inset 0 0 10px rgba($color-vista-blue, .5);
 	}
-	
+
 	&:disabled {
 		opacity: .2;
 	}
@@ -46,7 +87,7 @@ p {
 }
 
 h3 {
-	border-bottom: 1px solid rgba(#86ddb5, .2);
+	border-bottom: 1px solid rgba($color-vista-blue, .2);
 	color: rgba(#fff, .4);
 	font-size: .8rem;
 	text-transform: uppercase;

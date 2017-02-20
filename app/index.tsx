@@ -1,45 +1,42 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Store, createStore } from 'redux';
+import * as createLogger from 'redux-logger';
+import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import { Router, browserHistory } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
+import mainReducer from './reducers';
 
-import { App } from './components/app';
-import { counterApp } from './reducers';
+const initialState: {} = {};
 
-declare const require: (name: String) => any;
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const logger = createLogger({ collapsed: true });
 
-/* tslint:disable-next-line */
-const test = require('./scss/main.scss');
+// Route definitions
+const routes: {} = [{
+  childRoutes: [
+    // require('./routes/AdZonesCreate'),
+    // require('./routes/AdZonesListing'),
+    // require('./routes/AdZonesEdit'),
+    // require('./routes/InventoryCreate'),
+    // require('./routes/InventoryListing'),
+    // require('./routes/InventoryEdit'),
+    // require('./routes/Login'),
+  ],
+  component: require('./container/gameContainer').default,
+  path: '/',
+}];
 
-interface IHotModule {
-  hot?: { accept: (path: string, callback: () => void) => void };
-};
+const store = createStore(mainReducer, initialState, composeEnhancers(
+  applyMiddleware(thunk, logger)
+));
 
-declare const module: IHotModule;
+const history = syncHistoryWithStore(browserHistory, store);
 
-function configureStore(): Store {
-  const store: Store = createStore(counterApp);
-
-  if (module.hot) {
-    module.hot.accept('./reducers', () => {
-      const nextRootReducer: any = require('./reducers').counterApp;
-      store.replaceReducer(nextRootReducer);
-    });
-  }
-
-  return store;
-}
-
-const store: Store = configureStore();
-
-class Main extends React.Component<{}, {}> {
-  public render(): React.ReactElement<Provider> {
-    return (
-      <Provider store={store}>
-        <App />
-      </Provider>
-    );
-  }
-}
-
-ReactDOM.render(<Main />, document.getElementById('app'));
+ReactDOM.render(
+  <Provider store={store}>
+    <Router history={history} routes={routes} />
+  </Provider>,
+  document.getElementById('application')
+);

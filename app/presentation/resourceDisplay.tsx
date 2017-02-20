@@ -14,7 +14,7 @@ export default class ResourceDisplay extends React.Component<IResourceDisplayPro
     const { resources }: any = this.props;
 
     if (!resources) {
-      return null;
+      return <div/>;
     }
 
     return (

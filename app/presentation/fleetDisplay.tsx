@@ -14,7 +14,7 @@ export default class FleetDisplay extends React.Component<IFleetDisplayProps, {}
     const { ships }: any = this.props;
 
     if (!ships) {
-      return null;
+      return <div/>;
     }
 
     return (

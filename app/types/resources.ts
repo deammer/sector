@@ -1,3 +1,7 @@
 export type ResourcesType = {
-    titanium: number;
+  titanium: number;
+}
+
+export interface IResources {
+  titanium: Number;
 }

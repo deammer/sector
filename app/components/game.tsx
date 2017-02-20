@@ -1,19 +1,33 @@
 import * as React from 'react';
-import SystemDisplay from '../presentation/systemDisplay';
-import ShipFactory from '../presentation/shipFactory';
+import BuildingDisplay from '../presentation/buildingDisplay';
 import FleetDisplay from '../presentation/fleetDisplay';
+import Loop from './loop';
+import PopulationDisplay from '../presentation/populationDisplay';
 import ResourceDisplay from '../presentation/resourceDisplay';
-
+import ShipFactory from '../presentation/shipFactory';
+import SystemDisplay from '../presentation/systemDisplay';
+import { BuildingsList } from '../types/buildings';
+import { Population } from '../types/population';
 import { ResourcesType } from '../types/resources';
 import { ShipsType, ShipType } from '../types/ships';
+import { IMapDispatchToProps } from '../container/gameContainer';
+import { Config } from '../types/config';
+
+interface IGameProps extends IMapDispatchToProps {
+  population: Population;
+  buildings: BuildingsList;
+  config: Config;
+}
 
 interface IGameState {
   resources: ResourcesType;
   ships?: ShipsType;
 }
 
-export default class Game extends React.Component<{}, IGameState> {
-  constructor(props: {}) {
+export default class Game extends React.Component<IGameProps, IGameState> {
+  private animationFrame: number = 0;
+
+  constructor(props: IGameProps) {
     super(props);
 
     this.state = {
@@ -24,16 +38,33 @@ export default class Game extends React.Component<{}, IGameState> {
   }
 
   public render(): React.ReactElement<{}> {
+    const { buildings, config, population, setPopulation } = this.props;
+
     return (
       <div>
-        <SystemDisplay />
-        <ShipFactory
-          onShipBuilt={(s: ShipType) => { this.onShipBuilt(s); }}
-          spendResources={(r: any) => { this.spendResources(r); }} />
-        <ResourceDisplay resources={this.state.resources} />
-        <FleetDisplay ships={this.state.ships} />
+        <Loop>
+          <PopulationDisplay
+            buildings={buildings}
+            population={population}
+            setPopulation={setPopulation}
+            {...this.props} />
+          <BuildingDisplay
+            buildings={buildings}
+            setBuildings={this.props.setBuildings}
+            config={config} />
+          <SystemDisplay />
+          <ShipFactory
+            onShipBuilt={(s: ShipType) => { this.onShipBuilt(s); }}
+            spendResources={(r: any) => { this.spendResources(r); }} />
+          <ResourceDisplay resources={this.state.resources} />
+          <FleetDisplay ships={this.state.ships} />
+        </Loop>
       </div>
     );
+  }
+
+  private loop() {
+    this.animationFrame = requestAnimationFrame(this.loop);
   }
 
   private onShipBuilt(ship: ShipType): void {

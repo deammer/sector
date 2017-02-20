@@ -1,18 +1,25 @@
-export enum ACTION { IncrementCounter, DecrementCounter, AddCounter }
+export enum ACTION { SetResources, SetBuildings, SetPopulation }
 
 export interface ICounterAction {
   type: ACTION;
   counterId?: number;
 }
 
-export function incrementCounter(counterId: number): ICounterAction {
-  return { type: ACTION.IncrementCounter, counterId };
+export interface IResourceAction {
+  type: ACTION;
+  payload: any;
 }
 
-export function decrementCounter(counterId: number): ICounterAction {
-  return { type: ACTION.DecrementCounter, counterId };
+export interface IBuildingAction {
+  type: ACTION;
+  payload: any;
 }
 
-export function addCounter(): ICounterAction {
-  return { type: ACTION.AddCounter };
+export interface IPopulationAction {
+  type: ACTION;
+  payload: any;
+}
+
+export function setResources(resources: {}): IResourceAction {
+  return { payload: resources, type: ACTION.SetResources };
 }

@@ -1,0 +1,17 @@
+.button--progress {
+  position: relative;
+
+  &.active {
+    cursor: default;
+    opacity: .5;
+  }
+}
+
+.button--progress__bar {
+  background: rgba($color-green, .5);
+  height: 100%;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+}

@@ -1,0 +1,15 @@
+.table {
+  width: 100%;
+
+  tr > td:not(:first-of-type) {
+    text-align: right;
+  }
+
+  td {
+    padding: 5px 0;
+  }
+
+  tr:not(:last-of-type) {
+    border-bottom: 1px solid rgba($color-timber-green, .5);
+  }
+}

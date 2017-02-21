@@ -3,12 +3,18 @@ import { ACTION, IResourceAction, IBuildingAction, IPopulationAction } from './a
 import { routerReducer } from 'react-router-redux';
 import { Population } from './types/population';
 import { BuildingsList } from './types/buildings';
+import { Resources } from './types/resources';
 import config from './reducers/config';
 
-function resources(state: {} = {}, action: IResourceAction): any {
+const defaultResourcesState: Resources = {
+  food: 0,
+  titanium: 0
+};
+
+function resources(state: Resources = defaultResourcesState, action: IResourceAction): any {
   switch (action.type) {
     case ACTION.SetResources:
-      return state;
+      return Object.assign({}, state, action.payload);
     default:
       return state;
   }

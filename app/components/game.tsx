@@ -8,7 +8,7 @@ import ShipFactory from '../presentation/shipFactory';
 import SystemDisplay from '../presentation/systemDisplay';
 import { BuildingsList } from '../types/buildings';
 import { Population } from '../types/population';
-import { ResourcesType } from '../types/resources';
+import { Resources } from '../types/resources';
 import { ShipsType, ShipType } from '../types/ships';
 import { IMapDispatchToProps } from '../container/gameContainer';
 import { Config } from '../types/config';
@@ -16,11 +16,11 @@ import { Config } from '../types/config';
 interface IGameProps extends IMapDispatchToProps {
   population: Population;
   buildings: BuildingsList;
+  resources: Resources;
   config: Config;
 }
 
 interface IGameState {
-  resources: ResourcesType;
   ships?: ShipsType;
 }
 
@@ -30,11 +30,7 @@ export default class Game extends React.Component<IGameProps, IGameState> {
   constructor(props: IGameProps) {
     super(props);
 
-    this.state = {
-      resources: {
-        titanium: 10,
-      },
-    };
+    this.state = {};
   }
 
   public render(): React.ReactElement<{}> {
@@ -56,7 +52,9 @@ export default class Game extends React.Component<IGameProps, IGameState> {
           <ShipFactory
             onShipBuilt={(s: ShipType) => { this.onShipBuilt(s); }}
             spendResources={(r: any) => { this.spendResources(r); }} />
-          <ResourceDisplay resources={this.state.resources} />
+          <ResourceDisplay
+            config={config}
+            resources={this.props.resources} />
           <FleetDisplay ships={this.state.ships} />
         </Loop>
       </div>
@@ -89,6 +87,6 @@ export default class Game extends React.Component<IGameProps, IGameState> {
   }
 
   private spendResources(resources: any): void {
-    this.setState({ resources: { titanium: 0 }});
+    // TODO
   }
 }

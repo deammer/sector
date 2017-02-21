@@ -1,6 +1,6 @@
 import Game from '../components/game';
 import { ACTION } from '../actions';
-import { IResources } from '../types/resources';
+import { Resources } from '../types/resources';
 import { Population } from '../types/population';
 import { BuildingsList } from '../types/buildings';
 import { Config } from '../types/config';
@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 
 type IMapStateToProps = {
   buildings: BuildingsList;
-  resources: IResources;
+  resources: Resources;
   population: Population;
   config: Config;
 }
@@ -21,6 +21,7 @@ export interface IMapDispatchToProps {
   doThing: (credentials: any) => void;
   setBuildings: (bl: BuildingsList) => void;
   setPopulation: (p: Population) => void;
+  setResources: (r: Resources) => void;
 }
 
 function mapDispatchToProps(dispatch: Function, ownProps: any): IMapDispatchToProps {
@@ -28,11 +29,14 @@ function mapDispatchToProps(dispatch: Function, ownProps: any): IMapDispatchToPr
     doThing: ({ username, password }: any) => {
       console.log(username, password);
     },
-    setBuildings: (bl: BuildingsList) => {
-      dispatch({ type: ACTION.SetBuildings, payload: bl });
+    setBuildings: (payload: BuildingsList) => {
+      dispatch({ type: ACTION.SetBuildings, payload });
     },
-    setPopulation: (p: Population) => {
-      dispatch({ type: ACTION.SetPopulation, payload: p });
+    setPopulation: (payload: Population) => {
+      dispatch({ type: ACTION.SetPopulation, payload });
+    },
+    setResources: (payload: Resources) => {
+      dispatch({ type: ACTION.SetResources, payload });
     }
   };
 };

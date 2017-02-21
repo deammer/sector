@@ -51,7 +51,7 @@ export default class ProgressButton extends React.Component<IProgressButtonProps
     return (
       <button
         className={classes}
-        disabled={disabled}
+        disabled={disabled || this.state.isActive}
         onClick={(e: any) => { this.onClick(e); }}
         ref={(r) => { this.buttonRef = r; }}
       >

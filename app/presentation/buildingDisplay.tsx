@@ -55,7 +55,7 @@ export default class FleetDisplay extends React.Component<IBuildingDisplayProps,
     const { TITANIUM_FACTORY } = this.props.config;
     let name = <h3>{TITANIUM_FACTORY.name}</h3>;
     if (titaniumFactories > 1) {
-      name = <h3>{titaniumFactories} {TITANIUM_FACTORY.namePlural}</h3>
+      name = <h3>{titaniumFactories} {TITANIUM_FACTORY.namePlural}</h3>;
     }
     return (
       <div className="box--inline">

@@ -1,9 +1,9 @@
 import SaveManager from '../components/saveManager';
-import { IResources } from '../types/resources';
+import { Resources } from '../types/resources';
 import { connect } from 'react-redux';
 
 type IMapStateToProps = {
-  resources: IResources;
+  resources: Resources;
 }
 
 function mapStateToProps({ resources }: any): IMapStateToProps {

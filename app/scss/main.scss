@@ -8,15 +8,24 @@ $color-vista-blue: #86ddb5;
 $color-dark-jungle: #1e2120;
 $color-timber-green: #304138;
 $color-red: #ed3737;
+
+@import './reset';
 @import './progressButton';
+@import './table';
 
 *, *:after, *:before { box-sizing: border-box; }
+
+html {
+  font-size: 14px;
+}
 
 body {
 	background: $color-rangoon-green;
 	color: $color-green;
-	font-size: 14px;
 	height: auto;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
 	* { font-family: $font-base; }
 }
@@ -62,11 +71,14 @@ body {
 button {
 	background: $color-dark-jungle;
 	border: 1px solid $color-timber-green;
+  color: #fff;
+  font-size: 1rem;
+  margin-bottom: 5px;
 	margin-right: 5px;
 	outline: none;
 	padding: 5px;
 
-	&:hover {
+	&:not(:disabled):hover {
 		border-color: $color-vista-blue;
 		box-shadow: 0 0 15px rgba($color-vista-blue, .9);
 		color: #fff;
@@ -80,16 +92,26 @@ button {
 	&:disabled {
 		opacity: .2;
 	}
+
+  &:not(:disabled) {
+    cursor: pointer;
+  }
 }
 
 p {
+  font-size: 1rem;
 	margin-bottom: 5px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-rendering: optimizeLegibility;
 }
 
 h3 {
 	border-bottom: 1px solid rgba($color-vista-blue, .2);
 	color: rgba(#fff, .4);
 	font-size: .8rem;
+  margin-bottom: 5px;
 	text-transform: uppercase;
 }
 

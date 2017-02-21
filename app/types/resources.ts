@@ -1,7 +1,5 @@
-export type ResourcesType = {
-  titanium: number;
-}
 
-export interface IResources {
-  titanium: Number;
+export type Resources = {
+  titanium: number;
+  food: number;
 }
